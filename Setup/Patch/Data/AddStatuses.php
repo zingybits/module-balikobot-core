@@ -8,43 +8,41 @@
  * Unauthorized copying of this file, via any medium, is strictly prohibited
  * Proprietary and confidential
  *
- * @category ZingyBits
- * @package ZingyBits_BalikobotCore
+ * @category  ZingyBits
+ * @package   ZingyBits_BalikobotCore
  * @copyright Copyright (c) 2022 ZingyBits s.r.o.
- * @license http://www.zingybits.com/business-license
- * @author ZingyBits s.r.o. <support@zingybits.com>
+ * @license   http://www.zingybits.com/business-license
+ * @author    ZingyBits s.r.o. <support@zingybits.com>
  */
 
 namespace ZingyBits\BalikobotCore\Setup\Patch\Data;
 
+use Psr\Log\LoggerInterface;
 use ZingyBits\BalikobotCore\Model\Order\Status\AddNew;
 use ZingyBits\BalikobotCore\Api\Status;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Sales\Model\Order;
 
-/**
- * Class AddStatuses
- * @package Drmax\OrderStatus\Setup\Patch\Data
- */
 class AddStatuses implements DataPatchInterface
 {
-    const CUSTOM_ORDER_STATUSES = [
-        [
-            'status_code'       => Status::STATUS_BBOT_PICKUP,
-            'status_label'      => Status::LABEL_STATUS_BBOT_PICKUP,
-            'assign_to_state'   => Order::STATE_PROCESSING,
-            'is_default'        => false,
-            'visible_on_front'  => false
-        ],
-        [
-            'status_code'       => Status::STATUS_BBOT_INIT,
-            'status_label'      => Status::LABEL_STATUS_BBOT_INIT,
-            'assign_to_state'   => Order::STATE_PROCESSING,
-            'is_default'        => false,
-            'visible_on_front'  => false
-        ],
-    ];
+    public const CUSTOM_ORDER_STATUSES
+        = [
+            [
+                'status_code'      => Status::STATUS_BBOT_PICKUP,
+                'status_label'     => Status::LABEL_STATUS_BBOT_PICKUP,
+                'assign_to_state'  => Order::STATE_PROCESSING,
+                'is_default'       => false,
+                'visible_on_front' => false
+            ],
+            [
+                'status_code'      => Status::STATUS_BBOT_INIT,
+                'status_label'     => Status::LABEL_STATUS_BBOT_INIT,
+                'assign_to_state'  => Order::STATE_PROCESSING,
+                'is_default'       => false,
+                'visible_on_front' => false
+            ],
+        ];
 
     /**
      * @var AddNew
@@ -62,14 +60,13 @@ class AddStatuses implements DataPatchInterface
     protected $logger;
 
     /**
-     * UpdateData constructor.
-     *
-     * @param AddNew
-     * @param \Psr\Log\LoggerInterface $logger
+     * @param  AddNew                    $addNew
+     * @param  LoggerInterface           $logger
+     * @param  ModuleDataSetupInterface  $moduleDataSetup
      */
     public function __construct(
-        AddNew $addNew,
-        \Psr\Log\LoggerInterface $logger,
+        AddNew                   $addNew,
+        LoggerInterface          $logger,
         ModuleDataSetupInterface $moduleDataSetup
     ) {
         $this->addNew = $addNew;
@@ -78,7 +75,7 @@ class AddStatuses implements DataPatchInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function apply()
     {
@@ -87,7 +84,12 @@ class AddStatuses implements DataPatchInterface
     }
 
     /**
-     * @param array $statuses
+     * Added custom order statuses
+     *
+     * @param  array  $statuses
+     *
+     * @return void
+     * @throws \Exception
      */
     protected function addStatuses(array $statuses)
     {
@@ -97,7 +99,7 @@ class AddStatuses implements DataPatchInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public static function getDependencies(): array
     {
@@ -105,7 +107,7 @@ class AddStatuses implements DataPatchInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getAliases(): array
     {

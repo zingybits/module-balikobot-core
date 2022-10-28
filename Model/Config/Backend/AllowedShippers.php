@@ -8,11 +8,11 @@
  * Unauthorized copying of this file, via any medium, is strictly prohibited
  * Proprietary and confidential
  *
- * @category ZingyBits
- * @package ZingyBits_BalikobotCore
+ * @category  ZingyBits
+ * @package   ZingyBits_BalikobotCore
  * @copyright Copyright (c) 2022 ZingyBits s.r.o.
- * @license http://www.zingybits.com/business-license
- * @author ZingyBits s.r.o. <support@zingybits.com>
+ * @license   http://www.zingybits.com/business-license
+ * @author    ZingyBits s.r.o. <support@zingybits.com>
  */
 
 namespace ZingyBits\BalikobotCore\Model\Config\Backend;
@@ -56,36 +56,53 @@ class AllowedShippers extends Serialized
     protected $allMethods;
 
     /**
-     * @param \Magento\Framework\Model\Context $context
-     * @param \Magento\Framework\Registry $registry
-     * @param \Magento\Framework\App\Config\ScopeConfigInterface $config
-     * @param \Magento\Framework\App\Cache\TypeListInterface $cacheTypeList
-     * @param \Magento\Framework\Model\ResourceModel\AbstractResource|null $resource
-     * @param \Magento\Framework\Data\Collection\AbstractDb|null $resourceCollection
-     * @param \Magento\Shipping\Model\Config $shippingConfig
-     * @param array $data
-     * @param Json|null $serializer
+     * @param  Context                $context
+     * @param  Registry               $registry
+     * @param  ScopeConfigInterface   $config
+     * @param  TypeListInterface      $cacheTypeList
+     * @param  AbstractResource|null  $resource
+     * @param  AbstractDb|null        $resourceCollection
+     * @param  Config                 $shippingConfig
+     * @param  array                  $data
+     * @param  Json|null              $serializer
      */
     public function __construct(
-        Context $context,
-        Registry $registry,
+        Context              $context,
+        Registry             $registry,
         ScopeConfigInterface $config,
-        TypeListInterface $cacheTypeList,
-        AbstractResource $resource = null,
-        AbstractDb $resourceCollection = null,
-        Config $shippingConfig,
-        array $data = [],
-        Json $serializer = null
+        TypeListInterface    $cacheTypeList,
+        AbstractResource     $resource = null,
+        AbstractDb           $resourceCollection = null,
+        Config               $shippingConfig,
+        array                $data = [],
+        Json                 $serializer = null
     ) {
-        $this->serializer = $serializer ?: ObjectManager::getInstance()->get(Json::class);
+        $this->serializer = $serializer
+            ?: ObjectManager::getInstance()->get(
+                Json::class
+            );
         $this->_scopeConfig = $config;
         $this->_shippingConfig = $shippingConfig;
-        $this->allMethods = new Allmethods($this->_scopeConfig, $this->_shippingConfig);
-        parent::__construct($context, $registry, $config, $cacheTypeList, $resource, $resourceCollection, $data, $serializer);
+        $this->allMethods = new Allmethods(
+            $this->_scopeConfig,
+            $this->_shippingConfig
+        );
+        parent::__construct(
+            $context,
+            $registry,
+            $config,
+            $cacheTypeList,
+            $resource,
+            $resourceCollection,
+            $data,
+            $serializer
+        );
     }
 
     /**
-     * @return $this
+     * Processing object before save data
+     *
+     * @return AllowedShippers
      */
     public function beforeSave()
     {
@@ -104,15 +121,20 @@ class AllowedShippers extends Serialized
     }
 
     /**
+     * Processing object after load data
+     *
      * @return void
      */
     protected function _afterLoad()
     {
         $value = $this->getValue();
 
-
         if (!is_array($value)) {
-            $newValue = empty($value) ? [] : $this->serializer->unserialize($value);
+            $newValue = empty($value)
+                ? []
+                : $this->serializer->unserialize(
+                    $value
+                );
         }
 
         $enabledShippingMethods = $this->allMethods->toOptionArray(true);
@@ -121,12 +143,11 @@ class AllowedShippers extends Serialized
             if ($shipperCode && !isset($newValue[$shipperCode])) {
                 $newValue[$shipperCode] = [
                     'shipper' => $shipperData['label'],
-                    'method' => 0
+                    'method'  => 0
                 ];
             }
         }
 
         $this->setValue($newValue);
-
     }
 }

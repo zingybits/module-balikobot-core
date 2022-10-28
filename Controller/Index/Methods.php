@@ -8,11 +8,11 @@
  * Unauthorized copying of this file, via any medium, is strictly prohibited
  * Proprietary and confidential
  *
- * @category ZingyBits
- * @package ZingyBits_BalikobotCore
+ * @category  ZingyBits
+ * @package   ZingyBits_BalikobotCore
  * @copyright Copyright (c) 2022 ZingyBits s.r.o.
- * @license http://www.zingybits.com/business-license
- * @author ZingyBits s.r.o. <support@zingybits.com>
+ * @license   http://www.zingybits.com/business-license
+ * @author    ZingyBits s.r.o. <support@zingybits.com>
  */
 
 namespace ZingyBits\BalikobotCore\Controller\Index;
@@ -20,6 +20,9 @@ namespace ZingyBits\BalikobotCore\Controller\Index;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Request\Http;
 use Magento\Framework\App\Action\Context;
+use Magento\Framework\App\ResponseInterface;
+use Magento\Framework\Controller\Result\Json;
+use Magento\Framework\Controller\ResultInterface;
 use ZingyBits\BalikobotCore\Model\BalikobotApiClient;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Sales\Api\OrderRepositoryInterface;
@@ -48,12 +51,19 @@ class Methods extends Action
      */
     protected $balikobotApiClient;
 
+    /**
+     * @param  Context                   $context
+     * @param  JsonFactory               $resultJsonFactory
+     * @param  OrderRepositoryInterface  $orderRepository
+     * @param  Http                      $request
+     * @param  BalikobotApiClient        $balikobotApiClient
+     */
     public function __construct(
-        Context $context,
-        JsonFactory $resultJsonFactory,
+        Context                  $context,
+        JsonFactory              $resultJsonFactory,
         OrderRepositoryInterface $orderRepository,
-        Http $request,
-        BalikobotApiClient $balikobotApiClient
+        Http                     $request,
+        BalikobotApiClient       $balikobotApiClient
     ) {
         $this->resultJsonFactory = $resultJsonFactory;
         $this->orderRepository = $orderRepository;
@@ -62,7 +72,11 @@ class Methods extends Action
         parent::__construct($context);
     }
 
-
+    /**
+     * Returns available services for the given shipper
+     *
+     * @return ResponseInterface|Json|ResultInterface
+     */
     public function execute()
     {
         $result = $this->resultJsonFactory->create();
@@ -70,19 +84,24 @@ class Methods extends Action
         $shipper = $this->request->getParam('shipper');
         $balikobotShippers = $this->balikobotApiClient->getShippers();
         if (!in_array($shipper, $balikobotShippers)) {
-            return $result->setData([
-                'status' => 'error',
-                'message' => 'Wrong shipper'
-            ]);
+            return $result->setData(
+                [
+                    'status'  => 'error',
+                    'message' => 'Wrong shipper'
+                ]
+            );
         }
 
         try {
             $response = $this->balikobotApiClient->getServices($shipper);
         } catch (\Exception $e) {
-            return $result->setData([
-                'status' => 'error',
-                'message' => 'Balikobot API error: ' . $e->getMessage()
-            ]);
+            return $result->setData(
+                [
+                    'status'  => 'error',
+                    'message' => 'Balikobot API error: '
+                        . $e->getMessage()
+                ]
+            );
         }
 
         return $result->setData($response);

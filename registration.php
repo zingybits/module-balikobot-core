@@ -8,11 +8,11 @@
  * Unauthorized copying of this file, via any medium, is strictly prohibited
  * Proprietary and confidential
  *
- * @category ZingyBits
- * @package ZingyBits_BalikobotCore
+ * @category  ZingyBits
+ * @package   ZingyBits_BalikobotCore
  * @copyright Copyright (c) 2022 ZingyBits s.r.o.
- * @license http://www.zingybits.com/business-license
- * @author ZingyBits s.r.o. <support@zingybits.com>
+ * @license   http://www.zingybits.com/business-license
+ * @author    ZingyBits s.r.o. <support@zingybits.com>
  */
 
 \Magento\Framework\Component\ComponentRegistrar::register(

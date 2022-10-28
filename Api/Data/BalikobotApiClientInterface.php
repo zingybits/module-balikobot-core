@@ -8,50 +8,51 @@
  * Unauthorized copying of this file, via any medium, is strictly prohibited
  * Proprietary and confidential
  *
- * @category ZingyBits
- * @package ZingyBits_BalikobotCore
+ * @category  ZingyBits
+ * @package   ZingyBits_BalikobotCore
  * @copyright Copyright (c) 2022 ZingyBits s.r.o.
- * @license http://www.zingybits.com/business-license
- * @author ZingyBits s.r.o. <support@zingybits.com>
+ * @license   http://www.zingybits.com/business-license
+ * @author    ZingyBits s.r.o. <support@zingybits.com>
  */
 
 namespace ZingyBits\BalikobotCore\Api\Data;
 
-/**
- * Interface BalikobotApiInterface
- * @package ZingyBits\BalikobotCore\Api\Data
- */
 interface BalikobotApiClientInterface
 {
-        /**
+    /**
      * Requests
      */
-    const
+    public const
         REQUEST_ADD = 'add', /*< add a package */
         REQUEST_DROP = 'drop', /*< drop a package */
         REQUEST_TRACK = 'track', /*< track a package */
-        REQUEST_TRACKSTATUS = 'trackstatus', /*< track a package, get the last brief info */
+        REQUEST_TRACKSTATUS = 'trackstatus',
+        /*< track a package, get the last brief info */
         REQUEST_OVERVIEW = 'overview', /*< list of packages */
-        REQUEST_PACKAGE= 'package',  /*< get the package info */
+        REQUEST_PACKAGE = 'package',  /*< get the package info */
         REQUEST_ORDER = 'order',  /*< order shipment */
         REQUEST_ORDERVIEW = 'orderview',  /*< get the shipment details */
         REQUEST_SERVICES = 'services', /*< list of offered services */
         REQUEST_BRANCHES = 'branches', /*< list of available branches */
-        REQUEST_FULLBRANCHES = 'fullbranches', /*< list of available branches with details */
+        REQUEST_FULLBRANCHES = 'fullbranches',
+        /*< list of available branches with details */
         REQUEST_ZIPCODES = 'zipcodes', /*< list of available zip codes */
         REQUEST_LABELS = 'labels', /*< get labels */
-        REQUEST_MANIPULATIONUNITS = 'manipulationunits', /*< list of units for palette shipping */
-        REQUEST_COUNTRIES4SERVICE = 'countries4service'; /*< list of available countries */
+        REQUEST_MANIPULATIONUNITS = 'manipulationunits',
+        /*< list of units for palette shipping */
+        REQUEST_COUNTRIES4SERVICE = 'countries4service';
+    /*< list of available countries */
 
     /**
      * Shippers
      */
-    const
+    public const
         SHIPPER_CP = 'cp', /*< Česká pošta s.p. */
         SHIPPER_SP = 'sp', /*< Slovenská pošta */
         SHIPPER_DPD = 'dpd', /*< Direct Parcel Distribution CZ s.r.o. */
         SHIPPER_GEIS = 'geis', /*< Geis CZ s.r.o. */
-        SHIPPER_GLS = 'gls', /*< General Logistics Systems Czech Republic s.r.o. */
+        SHIPPER_GLS = 'gls',
+        /*< General Logistics Systems Czech Republic s.r.o. */
         SHIPPER_INTIME = 'intime', /*< IN TIME SPEDICE s.r.o. */
         SHIPPER_PBH = 'pbh', /*< Pošta bez hranic (Frogman s.r.o.) */
         SHIPPER_PPL = 'ppl', /*< PPL CZ s.r.o. */
@@ -62,7 +63,7 @@ interface BalikobotApiClientInterface
     /**
      * Countries ISO 3166-1 alpha-2
      */
-    const
+    public const
         COUNTRY_AFGHANISTAN = 'AF', /*< Afghanistan */
         COUNTRY_ALAND_ISLANDS = 'AX', /*< Aland Islands */
         COUNTRY_ALBANIA = 'AL', /*< Albania */
@@ -95,7 +96,8 @@ interface BalikobotApiClientInterface
         COUNTRY_BOTSWANA = 'BW', /*< Botswana */
         COUNTRY_BOUVET_ISLAND = 'BV', /*< Bouvet Island */
         COUNTRY_BRAZIL = 'BR', /*< Brazil */
-        COUNTRY_BRITISH_INDIAN_OCEAN_TERRITORY = 'IO', /*< British Indian Ocean Territory */
+        COUNTRY_BRITISH_INDIAN_OCEAN_TERRITORY = 'IO',
+        /*< British Indian Ocean Territory */
         COUNTRY_BRUNEI_DARUSSALAM = 'BN', /*< Brunei Darussalam */
         COUNTRY_BULGARIA = 'BG', /*< Bulgaria */
         COUNTRY_BURKINA_FASO = 'BF', /*< Burkina Faso */
@@ -114,7 +116,8 @@ interface BalikobotApiClientInterface
         COUNTRY_COLOMBIA = 'CO', /*< Colombia */
         COUNTRY_COMOROS = 'KM', /*< Comoros */
         COUNTRY_CONGO = 'CG', /*< Congo */
-        COUNTRY_CONGO_DEMOCRATIC_REPUBLIC = 'CD', /*< Congo (Democratic Republic of the) */
+        COUNTRY_CONGO_DEMOCRATIC_REPUBLIC = 'CD',
+        /*< Congo (Democratic Republic of the) */
         COUNTRY_COOK_ISLANDS = 'CK', /*< Cook Islands */
         COUNTRY_COSTA_RICA = 'CR', /*< Costa Rica */
         COUNTRY_COTE_DIVOIRE = 'CI', /*< Côte d'Ivoire */
@@ -141,7 +144,8 @@ interface BalikobotApiClientInterface
         COUNTRY_FRANCE = 'FR', /*< France */
         COUNTRY_FRENCH_GUIANA = 'GF', /*< French Guiana */
         COUNTRY_FRENCH_POLYNESIA = 'PF', /*< French Polynesia */
-        COUNTRY_FRENCH_SOUTHERN_TERRITORIES = 'TF', /*< French Southern Territories */
+        COUNTRY_FRENCH_SOUTHERN_TERRITORIES = 'TF',
+        /*< French Southern Territories */
         COUNTRY_GABON = 'GA', /*< Gabon */
         COUNTRY_GAMBIA = 'GM', /*< Gambia */
         COUNTRY_GEORGIA = 'GE', /*< Georgia */
@@ -159,7 +163,8 @@ interface BalikobotApiClientInterface
         COUNTRY_GUINEA_BISSAU = 'GW', /*< Guinea-Bissau */
         COUNTRY_GUYANA = 'GY', /*< Guyana */
         COUNTRY_HAITI = 'HT', /*< Haiti */
-        COUNTRY_HEARD_ISLAND_AND_MCDONALD_ISLANDS = 'HM', /*< Heard Island and McDonald Islands */
+        COUNTRY_HEARD_ISLAND_AND_MCDONALD_ISLANDS = 'HM',
+        /*< Heard Island and McDonald Islands */
         COUNTRY_HOLY_SEE = 'VA', /*< Holy See */
         COUNTRY_HONDURAS = 'HN', /*< Honduras */
         COUNTRY_HONG_KONG = 'HK', /*< Hong Kong */
@@ -194,7 +199,8 @@ interface BalikobotApiClientInterface
         COUNTRY_LITHUANIA = 'LT', /*< Lithuania */
         COUNTRY_LUXEMBOURG = 'LU', /*< Luxembourg */
         COUNTRY_MACAO = 'MO', /*< Macao */
-        COUNTRY_MACEDONIA = 'MK', /*< Macedonia (the former Yugoslav Republic of) */
+        COUNTRY_MACEDONIA = 'MK',
+        /*< Macedonia (the former Yugoslav Republic of) */
         COUNTRY_MADAGASCAR = 'MG', /*< Madagascar */
         COUNTRY_MALAWI = 'MW', /*< Malawi */
         COUNTRY_MALAYSIA = 'MY', /*< Malaysia */
@@ -248,12 +254,16 @@ interface BalikobotApiClientInterface
         COUNTRY_RUSSIAN_FEDERATION = 'RU', /*< Russian Federation */
         COUNTRY_RWANDA = 'RW', /*< Rwanda */
         COUNTRY_SAINT_BARTHELEMY = 'BL', /*< Saint Barthélemy */
-        COUNTRY_SAINT_HELENA = 'SH', /*< Saint Helena, Ascension and Tristan da Cunha */
-        COUNTRY_SAINT_KITTS_AND_NEVIS = 'KN', /*< Saint Kitts and Nevis */
+        COUNTRY_SAINT_HELENA = 'SH',
+        /*< Saint Helena, Ascension and Tristan da Cunha */
+        COUNTRY_SAINT_KITTS_AND_NEVIS = 'KN',
+        /*< Saint Kitts and Nevis */
         COUNTRY_SAINT_LUCIA = 'LC', /*< Saint Lucia */
         COUNTRY_SAINT_MARTIN = 'MF', /*< Saint Martin (French part) */
-        COUNTRY_SAINT_PIERRE_AND_MIQUELON = 'PM', /*< Saint Pierre and Miquelon */
-        COUNTRY_SAINT_VINCENT_AND_THE_GRENADINES = 'VC', /*< Saint Vincent and the Grenadines */
+        COUNTRY_SAINT_PIERRE_AND_MIQUELON = 'PM',
+        /*< Saint Pierre and Miquelon */
+        COUNTRY_SAINT_VINCENT_AND_THE_GRENADINES = 'VC',
+        /*< Saint Vincent and the Grenadines */
         COUNTRY_SAMOA = 'WS', /*< Samoa */
         COUNTRY_SAN_MARINO = 'SM', /*< San Marino */
         COUNTRY_SAO_TOME_AND_PRINCIPE = 'ST', /*< Sao Tome and Principe */
@@ -269,7 +279,8 @@ interface BalikobotApiClientInterface
         COUNTRY_SOLOMON_ISLANDS = 'SB', /*< Solomon Islands */
         COUNTRY_SOMALIA = 'SO', /*< Somalia */
         COUNTRY_SOUTH_AFRICA = 'ZA', /*< South Africa */
-        COUNTRY_SOUTH_GEORGIA_AND_THE_SOUTH_SANDWICH_ISLANDS = 'GS', /*< South Georgia and the South Sandwich Islands */
+        COUNTRY_SOUTH_GEORGIA_AND_THE_SOUTH_SANDWICH_ISLANDS = 'GS',
+        /*< South Georgia and the South Sandwich Islands */
         COUNTRY_SOUTH_SUDAN = 'SS', /*< South Sudan */
         COUNTRY_SPAIN = 'ES', /*< Spain */
         COUNTRY_SRI_LANKA = 'LK', /*< Sri Lanka */
@@ -297,9 +308,11 @@ interface BalikobotApiClientInterface
         COUNTRY_UGANDA = 'UG', /*< Uganda */
         COUNTRY_UKRAINE = 'UA', /*< Ukraine */
         COUNTRY_UNITED_ARAB_EMIRATES = 'AE', /*< United Arab Emirates */
-        COUNTRY_UNITED_KINGDOM_OF_GREAT_BRITAIN_AND_NORTHERN_IRELAND = 'GB', /*< United Kingdom of Great Britain and Northern Ireland */
+        COUNTRY_UNITED_KINGDOM_OF_GREAT_BRITAIN_AND_NORTHERN_IRELAND = 'GB',
+        /*< United Kingdom of Great Britain and Northern Ireland */
         COUNTRY_UNITED_STATES_OF_AMERICA = 'US', /*< United States of America */
-        COUNTRY_UNITED_STATES_MINOR_OUTLYING_ISLANDS = 'UM', /*< United States Minor Outlying Islands */
+        COUNTRY_UNITED_STATES_MINOR_OUTLYING_ISLANDS = 'UM',
+        /*< United States Minor Outlying Islands */
         COUNTRY_URUGUAY = 'UY', /*< Uruguay */
         COUNTRY_UZBEKISTAN = 'UZ', /*< Uzbekistan */
         COUNTRY_VANUATU = 'VU', /*< Vanuatu */
@@ -316,7 +329,7 @@ interface BalikobotApiClientInterface
     /**
      * Currencies ISO 4217
      */
-    const
+    public const
         CURRENCY_AUD = 'AUD', /*< dolar */
         CURRENCY_BRL = 'BRL', /*< real */
         CURRENCY_BGN = 'BGN', /*< lev */
@@ -354,35 +367,46 @@ interface BalikobotApiClientInterface
     /**
      * Shippers' options
      */
-    const
+    public const
         OPTION_PRICE = 'price', /*< package price; float */
         OPTION_SERVICES = 'services', /*< additional services; array */
-        OPTION_ORDER = 'real_order_id', /*< order id; string; max length 10 characters */
-        OPTION_SMS_NOTIFICATION = 'sms_notification', /*< notifies customer by SMS; boolean */
+        OPTION_ORDER = 'real_order_id',
+        /*< order id; string; max length 10 characters */
+        OPTION_SMS_NOTIFICATION = 'sms_notification',
+        /*< notifies customer by SMS; boolean */
         OPTION_BRANCH = 'branch_id', /*< branch id for pickup service */
         OPTION_INSURANCE = 'del_insurance', /*< insurance; boolean */
         OPTION_NOTE = 'note', /*< note */
-        OPTION_MU_TYPE = 'mu_type', /*< manipulation unit code; call getManipulationUnits */
-        OPTION_PIECES = 'pieces_count', /*< number of items if bigger than one; int */
-        OPTION_TT_MU_TYPE = 'mu_type', /*< manipulation unit code; call getManipulationUnits */
-        OPTION_TT_PIECES = 'pieces_count', /*< number of items if bigger than one; int */
+        OPTION_MU_TYPE = 'mu_type',
+        /*< manipulation unit code; call getManipulationUnits */
+        OPTION_PIECES = 'pieces_count',
+        /*< number of items if bigger than one; int */
+        OPTION_TT_MU_TYPE = 'mu_type',
+        /*< manipulation unit code; call getManipulationUnits */
+        OPTION_TT_PIECES = 'pieces_count',
+        /*< number of items if bigger than one; int */
         OPTION_WEIGHT = 'weight', /*< weight in kg; float */
         OPTION_PAY_BY_CUSTOMER = 'del_exworks', /*< pay by customer; boolean */
-        OPTION_COMFORT = 'comfort_service', /*< carry to the floor and others; boolean */
-        OPTION_RETURN_OLD_HA = 'app_disp', /*< return old household appliance; boolean */
-        OPTION_PHONE_NOTIFICATION = 'phone_notification', /*< notifies customer by phone; boolean */
+        OPTION_COMFORT = 'comfort_service',
+        /*< carry to the floor and others; boolean */
+        OPTION_RETURN_OLD_HA = 'app_disp',
+        /*< return old household appliance; boolean */
+        OPTION_PHONE_NOTIFICATION = 'phone_notification',
+        /*< notifies customer by phone; boolean */
         OPTION_B2C = 'b2c_notification', /*< B2C service; boolean */
         OPTION_NOTE_DRIVER = 'note_driver', /*< note */
         OPTION_NOTE_CUSTOMER = 'note_recipient', /*< note for customer */
-        OPTION_AGE = 'require_full_age', /*< taking delivery requires full age; boolean */
+        OPTION_AGE = 'require_full_age',
+        /*< taking delivery requires full age; boolean */
         OPTION_PASSWORD = 'password'; /*< taking delivery requires password */
 
     /**
      * CP shipper option services
      *
-     * @details Set services in a services options, the services options is an array of selected services
+     * @details Set services in a services options,
+     * the services options is an array of selected services
      */
-    const
+    public const
         OPTION_SERVICES_1 = '1', /*< Do vlastních rukou */
         OPTION_SERVICES_2 = '2', /*< Složenka PS */
         OPTION_SERVICES_3 = '3', /*< Dodejka */
@@ -390,53 +414,74 @@ interface BalikobotApiClientInterface
         OPTION_SERVICES_5 = '5', /*< Dobírka Pk C */
         OPTION_SERVICES_6 = '6', /*< Odpovědní zásilka */
         OPTION_SERVICES_7 = '7', /*< Udaná cena */
-        OPTION_SERVICES_8 = '8', /*< Do vlastních rukou výhradně jen adresáta */
-        OPTION_SERVICES_9 = '9', /*< Prioritaire (letecky) – pouze u zásilek do zahraničí. */
+        OPTION_SERVICES_8 = '8',
+        /*< Do vlastních rukou výhradně jen adresáta */
+        OPTION_SERVICES_9 = '9',
+        /*< Prioritaire (letecky) – pouze u zásilek do zahraničí. */
         OPTION_SERVICES_10 = '10', /*< Neskladně */
         OPTION_SERVICES_11 = '11', /*< Křehce */
         OPTION_SERVICES_12 = '12', /*< Uložit 7 dnů */
         OPTION_SERVICES_13 = '13', /*< Opis podací stvrzenky */
-        OPTION_SERVICES_14 = '14', /*< Garantovaný čas dodání (pouze u produktu Balík Do ruky s prefixem DE) */
+        OPTION_SERVICES_14 = '14',
+        /*< Garantovaný čas dodání
+        (pouze u produktu Balík Do ruky s prefixem DE) */
         OPTION_SERVICES_15 = '15', /*< Pilně */
         OPTION_SERVICES_16 = '16', /*< Neprodlužovat odběrní lhůtu */
-        OPTION_SERVICES_19 = '19', /*< Doručení NE a st. svátek (pouze u EMS vnitrostátní nebo Balík Do ruky se službou Garantovaný čas dodání) */
+        OPTION_SERVICES_19 = '19',
+        /*< Doručení NE a st. svátek (pouze u EMS vnitrostátní
+        nebo Balík Do ruky se službou Garantovaný čas dodání) */
         OPTION_SERVICES_20 = '20', /*< Neukládat */
         OPTION_SERVICES_21 = '21', /*< Uložit 3 dny */
         OPTION_SERVICES_22 = '22', /*< Uložit 10 dnů */
         OPTION_SERVICES_23 = '23', /*< Zmeškalá */
-        OPTION_SERVICES_24 = '24', /*< Komplexní doručení (jen pro produkt Do ruky a Nadrozměr) */
-        OPTION_SERVICES_25 = '25', /*< Odvoz starého spotřebiče (jen pro produkt Do ruky a Nadrozměr) a uložit 90 dnů (jen pro zásilky s prefixem RT) */
+        OPTION_SERVICES_24 = '24',
+        /*< Komplexní doručení (jen pro produkt Do ruky a Nadrozměr) */
+        OPTION_SERVICES_25 = '25',
+        /*< Odvoz starého spotřebiče (jen pro produkt Do ruky a Nadrozměr)
+        a uložit 90 dnů (jen pro zásilky s prefixem RT) */
         OPTION_SERVICES_26 = '26', /*< Nedosílat */
         OPTION_SERVICES_27 = '27', /*< Vyzvednutí zásilky třetí osobou */
-        OPTION_SERVICES_28 = '28', /*< Sleva 15% (pouze pro více zásilek určených jednomu adresátovi) */
+        OPTION_SERVICES_28 = '28',
+        /*< Sleva 15% (pouze pro více zásilek určených jednomu adresátovi) */
         OPTION_SERVICES_30 = '30', /*< Prodloužení odběrní lhůty */
         OPTION_SERVICES_31 = '31', /*< Poste restante */
         OPTION_SERVICES_32 = '32', /*< Dodejka a do vlastních rukou */
-        OPTION_SERVICES_33 = '33', /*< Dodejka a do vlastních rukou výhradně jen adresáta */
+        OPTION_SERVICES_33 = '33',
+        /*< Dodejka a do vlastních rukou výhradně jen adresáta */
         OPTION_SERVICES_34 = '34', /*< Avízo adresát – SMS */
         OPTION_SERVICES_37 = '37', /*< Nevracet – vložit do schránky */
         OPTION_SERVICES_38 = '38', /*< Nevkládat do schránky */
-        OPTION_SERVICES_40 = '40', /*< Dodání firmě (sleva dle poštovních podmínek) */
+        OPTION_SERVICES_40 = '40',
+        /*< Dodání firmě (sleva dle poštovních podmínek) */
         OPTION_SERVICES_41 = '41', /*< Bezdokladová dobírka */
-        OPTION_SERVICES_42 = '42', /*< Dokument (pouze pro zásilky do zahraničí) */
-        OPTION_SERVICES_43 = '43', /*< Zboží (pouze pro zásilky do zahraničí) */
-        OPTION_SERVICES_44 = '44', /*< Zboží s VDD (pouze pro zásilky do ciziny s celní zónou) */
+        OPTION_SERVICES_42 = '42',
+        /*< Dokument (pouze pro zásilky do zahraničí) */
+        OPTION_SERVICES_43 = '43',
+        /*< Zboží (pouze pro zásilky do zahraničí) */
+        OPTION_SERVICES_44 = '44',
+        /*< Zboží s VDD (pouze pro zásilky do ciziny s celní zónou) */
         OPTION_SERVICES_45 = '45', /*< Avízo adresáta – SMS+E-mail */
         OPTION_SERVICES_46 = '46', /*< Avízo adresát – E-mail */
-        OPTION_SERVICES_47 = '47', /*< Neklopit (pouze u nadrozměrné zásilky BN a balík Do ruky DR a DV nad 30kg) */
+        OPTION_SERVICES_47 = '47',
+        /*< Neklopit (pouze u nadrozměrné zásilky BN
+        a balík Do ruky DR a DV nad 30kg) */
         OPTION_SERVICES_49 = '49', /*< Ověření údajů */
         OPTION_SERVICES_50 = '50', /*< Doporučená zásilka */
         OPTION_SERVICES_51 = '51', /*< Doporučená zásilka standard */
         OPTION_SERVICES_52 = '52', /*< Doporučená slepecká zásilka */
         OPTION_SERVICES_53 = '53', /*< Doporučená zásilka do zahraničí */
-        OPTION_SERVICES_54 = '54', /*< Doporučená slepecká zásilka do zahraničí */
-        OPTION_SERVICES_55 = '55', /*< Doporučený tiskovinový pytel do zahraničí */
+        OPTION_SERVICES_54 = '54',
+        /*< Doporučená slepecká zásilka do zahraničí */
+        OPTION_SERVICES_55 = '55',
+        /*< Doporučený tiskovinový pytel do zahraničí */
         OPTION_SERVICES_56 = '56', /*< Úřední psaní */
         OPTION_SERVICES_57 = '57', /*< Úřední psaní standard */
         OPTION_SERVICES_58 = '58', /*< Doporučený aerogram do zahraničí */
         OPTION_SERVICES_60 = '60', /*< Firemní psaní doporučeně */
         OPTION_SERVICES_68 = '68', /*< Paleta (pro Balík Nadrozměr) */
-        OPTION_SERVICES_69 = '69', /*< Vícekusová zásilka II (služba je určena pouze pro Balík Nadrozměr) */
+        OPTION_SERVICES_69 = '69',
+        /*< Vícekusová zásilka II
+        (služba je určena pouze pro Balík Nadrozměr) */
         OPTION_SERVICES_70 = '70', /*< Vícekusová zásilka */
         OPTION_SERVICES_71 = '71', /*< Consignment */
         OPTION_SERVICES_76 = '76', /*< eDodejka SMS */
@@ -446,7 +491,7 @@ interface BalikobotApiClientInterface
     /**
      * Exceptions
      */
-    const
+    public const
         EXCEPTION_INVALID_REQUEST = 400, /*< Invalid request */
         EXCEPTION_NOT_SUPPORTED = 401, /*< Not supported */
         EXCEPTION_SERVER_ERROR = 500; /*< Unexpected response from the server */
@@ -454,39 +499,61 @@ interface BalikobotApiClientInterface
     /**
      * Sets service
      *
-     * @param string $shipper
-     * @param string|int $service
-     * @param array $options
+     * @param  string      $shipper
+     * @param  string|int  $service
+     * @param  array       $options
+     *
      * @return $this
      */
-    public function service($shipper, $service = null, array $options = []);
+    public function service(
+        $shipper,
+        $service = null,
+        array $options = []
+    );
 
     /**
      * Sets customer data
      *
-     * @param string $name
-     * @param string $street
-     * @param string $city
-     * @param string $zip
-     * @param string $phone
-     * @param string $email
-     * @param string $company
-     * @param string $country
+     * @param  string  $name
+     * @param  string  $street
+     * @param  string  $city
+     * @param  string  $zip
+     * @param  string  $phone
+     * @param  string  $email
+     * @param  string  $company
+     * @param  string  $country
+     *
      * @return $this
      */
-    public function customer($name, $street, $city, $zip, $phone, $email, $company, $country);
+    public function customer(
+        $name,
+        $street,
+        $city,
+        $zip,
+        $phone,
+        $email,
+        $company,
+        $country
+    );
 
     /**
      * Sets cash on delivery
      *
-     * @param float $price
-     * @param string|int $variableSymbol
-     * @param string $currency
+     * @param  float       $price
+     * @param  string|int  $variableSymbol
+     * @param  string      $currency
+     *
      * @return $this
      */
-    public function cashOnDelivery($price, $variableSymbol, $currency);
+    public function cashOnDelivery(
+        $price,
+        $variableSymbol,
+        $currency
+    );
 
     /**
+     * Add
+     *
      * @return array(
      *     'carrier_id' => track and trace package id,
      *     'package_id' => identification used by API request
@@ -498,7 +565,8 @@ interface BalikobotApiClientInterface
     /**
      * Returns available services for the given shipper
      *
-     * @param string $shipper
+     * @param  string  $shipper
+     *
      * @return array
      */
     public function getServices($shipper);
@@ -506,7 +574,8 @@ interface BalikobotApiClientInterface
     /**
      * Returns available manipulation units for the given shipper
      *
-     * @param string $shipper
+     * @param  string  $shipper
+     *
      * @return array
      */
     public function getManipulationUnits($shipper);
@@ -514,44 +583,59 @@ interface BalikobotApiClientInterface
     /**
      * Returns available branches for the given shipper and its service
      *
-     * @param string $shipper
-     * @param string $service
-     * @param bool $full Calls full branches instead branches request; currently available only for zasilkovna shipper
+     * @param  string  $shipper
+     * @param  string  $service
+     * @param  bool    $full  Calls full branches instead branches request;
+     *                        currently available only for zasilkovna shipper
+     *
      * @return array
      */
-    public function getBranches($shipper, $service, $full);
+    public function getBranches(
+        string $shipper,
+        string $service,
+        bool   $full
+    );
 
     /**
      * Returns list of countries where service is available in
      *
-     * @param string $shipper
+     * @param  string  $shipper
+     *
      * @return array
      */
-    public function getCountriesForService($shipper);
+    public function getCountriesForService(string $shipper);
 
     /**
      * Returns available branches for the given shipper and its service
      *
-     * @param string $shipper
-     * @param string $service
+     * @param  string  $shipper
+     * @param  string  $service
+     * @param  string  $country
+     *
      * @return array
      */
-    public function getZipCodes($shipper, $service, $country);
+    public function getZipCodes(
+        string $shipper,
+        string $service,
+        string $country
+    );
 
     /**
-     * Drops a package from the front
-     * The package must not ordered
+     * Drops a package from the front. The package must not ordered
      *
-     * @param string $shipper
-     * @param int $packageId
+     * @param  string  $shipper
+     * @param  int     $packageId
+     *
+     * @return mixed
      */
-    public function dropPackage($shipper, $packageId);
+    public function dropPackage(string $shipper, int $packageId);
 
     /**
      * Tracks a package
      *
-     * @param string $shipper
-     * @param string $carrierId
+     * @param  string  $shipper
+     * @param  string  $carrierId
+     *
      * @return array
      */
     public function trackPackage($shipper, $carrierId);
@@ -559,8 +643,9 @@ interface BalikobotApiClientInterface
     /**
      * Tracks a package, get the last info
      *
-     * @param string $shipper
-     * @param string $carrierId
+     * @param  string  $shipper
+     * @param  string  $carrierId
+     *
      * @return array
      */
     public function trackPackageLast($shipper, $carrierId);
@@ -568,15 +653,16 @@ interface BalikobotApiClientInterface
     /**
      * Checks if there are packages in the front (not ordered)
      *
-     * @param string $shipper
+     * @param  string  $shipper
      */
     public function overview($shipper);
 
     /**
      * Gets labels
      *
-     * @param string $shipper
-     * @param array $packages
+     * @param  string  $shipper
+     * @param  array   $packages
+     *
      * @return string
      */
     public function getLabels($shipper, array $packages);
@@ -584,8 +670,9 @@ interface BalikobotApiClientInterface
     /**
      * Gets complete information about a package
      *
-     * @param string $shipper
-     * @param int $packageId
+     * @param  string  $shipper
+     * @param  int     $packageId
+     *
      * @return array
      */
     public function getPackageInfo($shipper, $packageId);
@@ -593,13 +680,12 @@ interface BalikobotApiClientInterface
     /**
      * Order packages' collection
      *
-     * @param string $shipper
-     * @param array $packages
+     * @param  string  $shipper
+     * @param  array   $packages
+     *
      * @return array
      */
     public function order($shipper, array $packages);
-
-    // helpers ---------------------------------------------------------------------------------------------------------
 
     /**
      * Returns available shippers
@@ -609,27 +695,30 @@ interface BalikobotApiClientInterface
     /**
      * Returns available options for the given shipper
      *
-     * @param string $shipper
+     * @param  string  $shipper
+     *
      * @return array
      */
     public function getOptions($shipper);
 
     /**
      * Returns country codes
+     *
      * @return array
      */
     public function getCountryCodes();
 
     /**
      * Returns currencies
+     *
      * @return array
      */
     public function getCurrencies();
 
     /**
      * Returns available values for option services
+     *
      * @return array
      */
     public function getOptionServices();
-
 }

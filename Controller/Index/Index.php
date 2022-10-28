@@ -8,15 +8,18 @@
  * Unauthorized copying of this file, via any medium, is strictly prohibited
  * Proprietary and confidential
  *
- * @category ZingyBits
- * @package ZingyBits_BalikobotCore
+ * @category  ZingyBits
+ * @package   ZingyBits_BalikobotCore
  * @copyright Copyright (c) 2022 ZingyBits s.r.o.
- * @license http://www.zingybits.com/business-license
- * @author ZingyBits s.r.o. <support@zingybits.com>
+ * @license   http://www.zingybits.com/business-license
+ * @author    ZingyBits s.r.o. <support@zingybits.com>
  */
 
 namespace ZingyBits\BalikobotCore\Controller\Index;
 
+use Magento\Framework\App\ResponseInterface;
+use Magento\Framework\Controller\Result\Json;
+use Magento\Framework\Controller\ResultInterface;
 use ZingyBits\BalikobotCore\Api\Status;
 use Magento\Framework\App\Action\Action;
 use \Magento\Framework\App\Request\Http;
@@ -29,11 +32,11 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 
 class Index extends Action
 {
-
-    const phoneCodes = [
-        'CZ' => 420,
-        'SK' => 421,
-    ];
+    public const PHONE_CODES
+        = [
+            'CZ' => 420,
+            'SK' => 421,
+        ];
 
     /**
      * @var JsonFactory
@@ -65,14 +68,23 @@ class Index extends Action
      */
     protected $balikobotApiClient;
 
+    /**
+     * @param  Context                   $context
+     * @param  JsonFactory               $resultJsonFactory
+     * @param  ScopeConfigInterface      $scopeConfig
+     * @param  StoreManagerInterface     $storeManager
+     * @param  OrderRepositoryInterface  $orderRepository
+     * @param  BalikobotApiClient        $balikobotApiClient
+     * @param  Http                      $request
+     */
     public function __construct(
-        Context $context,
-        JsonFactory $resultJsonFactory,
-        ScopeConfigInterface $scopeConfig,
-        StoreManagerInterface $storeManager,
+        Context                  $context,
+        JsonFactory              $resultJsonFactory,
+        ScopeConfigInterface     $scopeConfig,
+        StoreManagerInterface    $storeManager,
         OrderRepositoryInterface $orderRepository,
-        BalikobotApiClient $balikobotApiClient,
-        Http $request
+        BalikobotApiClient       $balikobotApiClient,
+        Http                     $request
     ) {
         $this->resultJsonFactory = $resultJsonFactory;
         $this->scopeConfig = $scopeConfig;
@@ -83,7 +95,12 @@ class Index extends Action
         parent::__construct($context);
     }
 
-
+    /**
+     * Return json
+     *
+     * @return ResponseInterface|Json|ResultInterface
+     * @throws \Exception
+     */
     public function execute()
     {
         $result = $this->resultJsonFactory->create();
@@ -99,7 +116,12 @@ class Index extends Action
         if (!$data) {
             // get required values from order
             $shipper = $order->getShippingMethod();
-            $map = json_decode($this->scopeConfig->getValue('balikobot/allowed_shippers/shippers') ?: '[]', true);
+            $map = json_decode(
+                $this->scopeConfig->getValue(
+                    'balikobot/allowed_shippers/shippers'
+                ) ?: '[]',
+                true
+            );
 
             foreach ($map as $shipperCode => $info) {
                 if (strpos($shipper, (string)$shipperCode) !== false) {
@@ -108,11 +130,15 @@ class Index extends Action
                 }
             }
 
-            if (!isset($map[$shipper]) || $map[$shipper]['balikobot_shippers'] == '0') {
-                return $result->setData([
-                    'status' => 'error',
-                    'message' => 'Wrong shipping method'
-                ]);
+            if (!isset($map[$shipper])
+                || $map[$shipper]['balikobot_shippers'] == '0'
+            ) {
+                return $result->setData(
+                    [
+                        'status'  => 'error',
+                        'message' => 'Wrong shipping method'
+                    ]
+                );
             }
 
             $balikobotShipper = $map[$shipper]['balikobot_shippers'];
@@ -121,16 +147,28 @@ class Index extends Action
             $shippingAddress = $order->getShippingAddress()->getData();
 
             // adding country code to phone number if it's missing
-            $phone = str_replace(' ', '', $shippingAddress['telephone']);
-            $phoneCode = static::phoneCodes[$shippingAddress['country_id']] ?? null;
-            if(!is_null($phoneCode) && strpos($phone, (string)$phoneCode) === false) {
+            $phone = str_replace(
+                ' ',
+                '',
+                $shippingAddress['telephone']
+            );
+            $phoneCode = static::PHONE_CODES[$shippingAddress['country_id']] ??
+                null;
+            if ($phoneCode !== null
+                && strpos($phone, (string)$phoneCode) === false
+            ) {
                 $phone = '+' . $phoneCode . $phone;
             }
 
             try {
-                $this->balikobotApiClient->service($balikobotShipper, $balikobotMethod, ['price' => $order->getSubtotal()]);
+                $this->balikobotApiClient->service(
+                    $balikobotShipper,
+                    $balikobotMethod,
+                    ['price' => $order->getSubtotal()]
+                );
                 $this->balikobotApiClient->customer(
-                    $shippingAddress['firstname'] . ' ' . $shippingAddress['lastname'],
+                    $shippingAddress['firstname'] . ' '
+                    . $shippingAddress['lastname'],
                     $shippingAddress['street'],
                     $shippingAddress['city'],
                     str_replace(' ', '', $shippingAddress['postcode']),
@@ -139,18 +177,26 @@ class Index extends Action
                 );
                 $response = $this->balikobotApiClient->add();
             } catch (\Exception $e) {
-                return $result->setData([
-                    'status' => 'error',
-                    'message' => 'Balikobot API error: ' . $e->getMessage()
-                ]);
+                return $result->setData(
+                    [
+                        'status'  => 'error',
+                        'message' => 'Balikobot API error: '
+                            . $e->getMessage()
+                    ]
+                );
             }
 
             // save api response to order
             $order->setBalikobotJson(json_encode($response));
-            $order->addCommentToStatusHistory(__('The label has been generated at Balikobot'));
-            $order->setState(status::STATUS_BBOT_INIT, true);
-            $order->setStatus(status::STATUS_BBOT_INIT);
-            $order->addStatusToHistory($order->getStatus(), __('new order status - ').__(status::LABEL_STATUS_BBOT_INIT ));
+            $order->addCommentToStatusHistory(
+                __('The label has been generated at Balikobot')
+            );
+            $order->setState(Status::STATUS_BBOT_INIT, true);
+            $order->setStatus(Status::STATUS_BBOT_INIT);
+            $order->addStatusToHistory(
+                $order->getStatus(),
+                __('new order status - ' . Status::LABEL_STATUS_BBOT_INIT)
+            );
 
             $order->save();
         } else {

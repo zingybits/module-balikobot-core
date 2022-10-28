@@ -8,11 +8,11 @@
  * Unauthorized copying of this file, via any medium, is strictly prohibited
  * Proprietary and confidential
  *
- * @category ZingyBits
- * @package ZingyBits_BalikobotCore
+ * @category  ZingyBits
+ * @package   ZingyBits_BalikobotCore
  * @copyright Copyright (c) 2022 ZingyBits s.r.o.
- * @license http://www.zingybits.com/business-license
- * @author ZingyBits s.r.o. <support@zingybits.com>
+ * @license   http://www.zingybits.com/business-license
+ * @author    ZingyBits s.r.o. <support@zingybits.com>
  */
 
 namespace ZingyBits\BalikobotCore\Test\Unit;
@@ -32,12 +32,23 @@ class DpdApiTest extends \PHPUnit\Framework\TestCase
 
     public function setUp(): void
     {
-        $this->balikobotApiClient = new BalikobotApiClient('imagentoczt', 'TLWV561G', 1);
+        $this->balikobotApiClient = new BalikobotApiClient(
+            'imagentoczt',
+            'TLWV561G',
+            1
+        );
     }
 
     public function testService()
     {
-        $this->assertEquals($this->balikobotApiClient, $this->balikobotApiClient->service('dpd', '1', ['price' => 5]));
+        $this->assertEquals(
+            $this->balikobotApiClient,
+            $this->balikobotApiClient->service(
+                'dpd',
+                '1',
+                ['price' => 5]
+            )
+        );
 
         return $this->balikobotApiClient;
     }
@@ -47,7 +58,17 @@ class DpdApiTest extends \PHPUnit\Framework\TestCase
      */
     public function testCustomer()
     {
-        $this->assertEquals($this->balikobotApiClient, $this->balikobotApiClient->customer('Test Man', 'Revoluční 16', 'Praha', '11000', '+420777888777', 'test@balikobot.cz'));
+        $this->assertEquals(
+            $this->balikobotApiClient,
+            $this->balikobotApiClient->customer(
+                'Test Man',
+                'Revoluční 16',
+                'Praha',
+                '11000',
+                '+420777888777',
+                'test@balikobot.cz'
+            )
+        );
     }
 
     /**
@@ -56,10 +77,16 @@ class DpdApiTest extends \PHPUnit\Framework\TestCase
     public function testAdd()
     {
         $this->balikobotApiClient->service('dpd', '1', ['price' => 5]);
-        $this->balikobotApiClient->customer('Test Man', 'Revoluční 16', 'Praha', '11000', '+420777888777', 'test@balikobot.cz');
+        $this->balikobotApiClient->customer(
+            'Test Man',
+            'Revoluční 16',
+            'Praha',
+            '11000',
+            '+420777888777',
+            'test@balikobot.cz'
+        );
         $response = $this->balikobotApiClient->add();
         $this->assertArrayHasKey('status', $response);
         $this->assertEquals(200, $response['status']);
     }
-
 }
