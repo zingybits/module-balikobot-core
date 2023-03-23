@@ -17,7 +17,6 @@
 
 namespace ZingyBits\BalikobotCore\Model;
 
-use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Store\Model\StoreManagerInterface;
 use ZingyBits\BalikobotCore\Api\Data\BalikobotApiClientInterface;
@@ -33,9 +32,6 @@ class BalikobotApiClient implements BalikobotApiClientInterface
     /** @var int */
     private $shopId = null;
 
-    /** @var string */
-    private $apiUrl = 'https://api.balikobot.cz';
-
     /** @var array */
     private $data
         = [
@@ -47,9 +43,9 @@ class BalikobotApiClient implements BalikobotApiClientInterface
         ];
 
     /**
-     * @var ScopeConfigInterface
+     * @var Config
      */
-    protected $scopeConfig;
+    protected $config;
 
     /**
      * @var StoreManagerInterface
@@ -68,7 +64,7 @@ class BalikobotApiClient implements BalikobotApiClientInterface
 
     /**
      * @param  StoreManagerInterface  $storeManager
-     * @param  ScopeConfigInterface   $scopeConfig
+     * @param  Config                 $config
      * @param  string                 $apiKeyConfigPath
      * @param  string                 $apiUserConfigPath
      *
@@ -76,18 +72,18 @@ class BalikobotApiClient implements BalikobotApiClientInterface
      */
     public function __construct(
         StoreManagerInterface $storeManager,
-        ScopeConfigInterface  $scopeConfig,
+        Config                $config,
         string                $apiKeyConfigPath,
         string                $apiUserConfigPath
     ) {
         $this->storeManager = $storeManager;
-        $this->scopeConfig = $scopeConfig;
+        $this->config = $config;
         $this->apiKeyConfigPath = $apiKeyConfigPath;
         $this->apiUserConfigPath = $apiUserConfigPath;
 
         $shopId = (int)$this->storeManager->getStore()->getId();
-        $apiKey = $this->scopeConfig->getValue($this->apiKeyConfigPath);
-        $apiUser = $this->scopeConfig->getValue($this->apiUserConfigPath);
+        $apiKey = $this->config->getApiKey();
+        $apiUser = $this->config->getApiUser();
 
         if (empty($apiUser) || empty($apiKey) || empty($shopId)) {
             throw new \InvalidArgumentException(
@@ -1334,8 +1330,8 @@ class BalikobotApiClient implements BalikobotApiClientInterface
         curl_setopt(
             $r,
             CURLOPT_URL,
-            $url ? "$this->apiUrl/$shipper/$request/$url"
-                : "$this->apiUrl/$shipper/$request"
+            $url ? Config::BALIKOBOT_API_URL . "/$shipper/$request/$url"
+                : Config::BALIKOBOT_API_URL . "/$shipper/$request"
         );
         curl_setopt($r, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($r, CURLOPT_HEADER, false);

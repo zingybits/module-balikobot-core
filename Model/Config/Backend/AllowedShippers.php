@@ -27,7 +27,6 @@ use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Model\Context;
 use Magento\Framework\Registry;
-
 use Magento\Shipping\Model\Config\Source\Allmethods;
 use Magento\Shipping\Model\Config;
 

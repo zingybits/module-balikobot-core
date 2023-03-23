@@ -28,7 +28,8 @@ use ZingyBits\BalikobotCore\Model\BalikobotApiClient;
 use Magento\Store\Model\StoreManagerInterface;
 use \Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Framework\Controller\Result\JsonFactory;
-use Magento\Framework\App\Config\ScopeConfigInterface;
+use ZingyBits\BalikobotCore\Model\Order\Email\Sender\OrderSender;
+use ZingyBits\BalikobotCore\Model\Config;
 
 class Index extends Action
 {
@@ -44,9 +45,9 @@ class Index extends Action
     protected $resultJsonFactory;
 
     /**
-     * @var ScopeConfigInterface
+     * @var Config
      */
-    protected $scopeConfig;
+    protected $config;
 
     /**
      * @var StoreManagerInterface
@@ -69,29 +70,32 @@ class Index extends Action
     protected $balikobotApiClient;
 
     /**
-     * @param  Context                   $context
-     * @param  JsonFactory               $resultJsonFactory
-     * @param  ScopeConfigInterface      $scopeConfig
-     * @param  StoreManagerInterface     $storeManager
-     * @param  OrderRepositoryInterface  $orderRepository
-     * @param  BalikobotApiClient        $balikobotApiClient
-     * @param  Http                      $request
+     * @param Context $context
+     * @param JsonFactory $resultJsonFactory
+     * @param Config $config
+     * @param StoreManagerInterface $storeManager
+     * @param OrderRepositoryInterface $orderRepository
+     * @param BalikobotApiClient $balikobotApiClient
+     * @param Http $request
+     * @param OrderSender $sender
      */
     public function __construct(
         Context                  $context,
         JsonFactory              $resultJsonFactory,
-        ScopeConfigInterface     $scopeConfig,
+        Config                   $config,
         StoreManagerInterface    $storeManager,
         OrderRepositoryInterface $orderRepository,
         BalikobotApiClient       $balikobotApiClient,
-        Http                     $request
+        Http                     $request,
+        OrderSender $sender
     ) {
         $this->resultJsonFactory = $resultJsonFactory;
-        $this->scopeConfig = $scopeConfig;
+        $this->config = $config;
         $this->storeManager = $storeManager;
         $this->orderRepository = $orderRepository;
         $this->request = $request;
         $this->balikobotApiClient = $balikobotApiClient;
+        $this->sender = $sender;
         parent::__construct($context);
     }
 
@@ -116,12 +120,7 @@ class Index extends Action
         if (!$data) {
             // get required values from order
             $shipper = $order->getShippingMethod();
-            $map = json_decode(
-                $this->scopeConfig->getValue(
-                    'balikobot/allowed_shippers/shippers'
-                ) ?: '[]',
-                true
-            );
+            $map = json_decode($this->config->getAllowedShippers() ?: '[]',true);
 
             foreach ($map as $shipperCode => $info) {
                 if (strpos($shipper, (string)$shipperCode) !== false) {
@@ -197,8 +196,8 @@ class Index extends Action
                 $order->getStatus(),
                 __('new order status - ' . Status::LABEL_STATUS_BBOT_INIT)
             );
-
             $order->save();
+
         } else {
             $response = json_decode($data);
         }

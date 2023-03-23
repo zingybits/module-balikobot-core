@@ -24,10 +24,8 @@ use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\ResultInterface;
 use ZingyBits\BalikobotCore\Model\BalikobotApiClient;
-use Magento\Store\Model\StoreManagerInterface;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Framework\Controller\Result\JsonFactory;
-use Magento\Framework\App\Config\ScopeConfigInterface;
 
 class Methods extends Action
 {
