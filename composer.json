@@ -2,7 +2,7 @@
     "name": "zingybits/module-balikobot-core",
     "description": "Balikobot - Magento 2 integration - core module",
     "type": "magento2-module",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Zingy Bits",
